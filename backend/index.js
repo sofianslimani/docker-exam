@@ -1,16 +1,30 @@
 const express = require('express');
-const config = require('./db.config');
 
 const db = require('knex')({
   client: 'mysql2',
   connection: {
-    host: config.HOST,
-    port: config.PORT,
-    user: config.USER,
-    password: config.PASSWORD,
-    database: config.DATABASE,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_DATABASE,
   },
 });
+
+const createTable = () => {
+  db.schema
+    .createTable(process.env.DATABASE_TABLE, (table) => {
+      table.increments('id');
+      table.string('name');
+      table.string('description');
+    })
+    .then(() => {
+      console.log(`Table ${process.env.DATABASE_TABLE} crée`);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 const cors = require('cors');
 const app = express();
@@ -21,7 +35,7 @@ app.use(cors());
 
 app.get('/todos', async (req, res) => {
   db.select('*')
-    .from(config.TABLE)
+    .from(process.env.DATABASE_TABLE)
     .then((rows) => {
       res.send(rows);
     })
@@ -33,7 +47,7 @@ app.get('/todos', async (req, res) => {
 app.post('/todos', async (req, res) => {
   const data = req.body;
   db.insert(data)
-    .into(config.TABLE)
+    .into(process.env.DATABASE_TABLE)
     .then(() => {
       res.send('Ligne insérée avec succès');
     })
@@ -44,7 +58,7 @@ app.post('/todos', async (req, res) => {
 
 app.delete('/todos/:todoId', async (req, res) => {
   const id = req.params.todoId;
-  db(config.TABLE)
+  db(process.env.DATABASE_TABLE)
     .where('id', '=', id)
     .del()
     .then((rowsAffected) => {
@@ -59,17 +73,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 
   setTimeout(() => {
-    db.schema
-      .createTable(config.TABLE, (table) => {
-        table.increments('id');
-        table.string('name');
-        table.string('description');
-      })
-      .then(() => {
-        console.log(`Table ${config.TABLE} crée`);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    createTable();
   }, 12000);
 });

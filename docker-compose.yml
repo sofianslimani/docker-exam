@@ -12,6 +12,13 @@ services:
     build: ./backend
     ports:
       - "4001:3001"
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_DATABASE=${DATABASE_DATABASE}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_TABLE=${DATABASE_TABLE}
   frontend:
     build: ./frontend
     ports:
