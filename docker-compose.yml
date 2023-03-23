@@ -1,1 +1,9 @@
 #TO_MODIFY
+version: '3.7'
+services:
+  backend:
+    container_name: iim_backend
+    hostname: iim_backend
+    build: ./backend
+    ports:
+      - "4001:3000"

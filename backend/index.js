@@ -1,8 +1,8 @@
-const express = require("express");
-const config = require("./db.config");
+const express = require('express');
+const config = require('./db.config');
 
-const db = require("knex")({
-  client: "mysql2",
+const db = require('knex')({
+  client: 'mysql2',
   connection: {
     host: config.HOST,
     port: config.PORT,
@@ -12,23 +12,23 @@ const db = require("knex")({
   },
 });
 
-const cors = require("cors");
+const cors = require('cors');
 const app = express();
 
-const port = //TO_MODIFY
+const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.get("/todos", async (req, res) => {
+app.get('/todos', async (req, res) => {
   //TO_MODIFY
-  res.send([]) // to remove after question 1)
+  res.send([]); // to remove after question 1)
 });
 
-app.post("/todos", async (req, res) => {
+app.post('/todos', async (req, res) => {
   //TO_MODIFY
 });
 
-app.delete("/todos/:todoId", async (req, res) => {
+app.delete('/todos/:todoId', async (req, res) => {
   //TO_MODIFY
 });
 
