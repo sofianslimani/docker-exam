@@ -1,9 +1,14 @@
 #TO_MODIFY
 version: '3.7'
 services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=docker_exam
   backend:
-    container_name: iim_backend
-    hostname: iim_backend
     build: ./backend
     ports:
       - "4001:3000"
