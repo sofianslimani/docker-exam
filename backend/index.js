@@ -15,7 +15,7 @@ const db = require('knex')({
 const cors = require('cors');
 const app = express();
 
-const port = 3000;
+const port = 3001;
 app.use(express.json());
 app.use(cors());
 
@@ -71,5 +71,5 @@ app.listen(port, () => {
       .catch((error) => {
         console.error(error);
       });
-  }, 10000);
+  }, 12000);
 });

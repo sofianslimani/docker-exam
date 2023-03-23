@@ -11,4 +11,8 @@ services:
   backend:
     build: ./backend
     ports:
-      - "4001:3000"
+      - "4001:3001"
+  frontend:
+    build: ./frontend
+    ports:
+      - "4000:3000"

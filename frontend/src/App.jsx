@@ -40,9 +40,10 @@ const App = () => {
     <main className="App">
       <h1>My Todos</h1>
       <AddTodo saveTodo={handleCreateTodo} />
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} deleteTodo={handleDeleteTodo} todo={todo} />
-      ))}
+      {todos &&
+        todos.map((todo) => (
+          <TodoItem key={todo.id} deleteTodo={handleDeleteTodo} todo={todo} />
+        ))}
     </main>
   );
 };
