@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import TodoItem from "./components/TodoItem";
-import AddTodo from "./components/AddTodo";
-import { getTodos, createTodo, deleteTodo } from "./API";
+import React, { useEffect, useState } from 'react';
+import TodoItem from './components/TodoItem';
+import AddTodo from './components/AddTodo';
+import { getTodos, createTodo, deleteTodo } from './API';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -13,7 +13,7 @@ const App = () => {
   const fetchTodos = () => {
     getTodos()
       .then(({ data }) => {
-        setTodos(data);
+        if (data) setTodos(data);
       })
       .then(console.log)
       .catch((err) => console.log(err));

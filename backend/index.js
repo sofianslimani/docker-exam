@@ -62,7 +62,8 @@ app.listen(port, () => {
     db.schema
       .createTable(config.TABLE, (table) => {
         table.increments('id');
-        table.string('content');
+        table.string('name');
+        table.string('description');
       })
       .then(() => {
         console.log(`Table ${config.TABLE} crée`);
